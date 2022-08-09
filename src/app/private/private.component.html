@@ -1,0 +1,21 @@
+<mat-toolbar color="primary" class="header">
+  <mat-toolbar-row class="header__container">
+    <h1>Hecnic</h1>
+
+    <a class="btn btn-primary cursor" role="button" (click)="logout()"
+      >logout</a
+    >
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav">
+  <mat-sidenav mode="side" opened class="sidenav__container">
+    <mat-nav-list>
+      <a mat-list-item><mat-icon>home</mat-icon> Resumen</a>
+      <a mat-list-item><mat-icon>person</mat-icon>Client</a>
+      <a mat-list-item><mat-icon>description</mat-icon>Invoice</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content-main"> </mat-sidenav-content>
+</mat-sidenav-container>

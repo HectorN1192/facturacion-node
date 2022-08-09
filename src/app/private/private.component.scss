@@ -1,0 +1,17 @@
+.content-main {
+  height: calc(100vh - 64px);
+}
+
+.sidenav__container {
+  min-width: 200px;
+}
+
+.header__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cursor {
+  cursor: pointer;
+}

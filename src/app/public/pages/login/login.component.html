@@ -5,7 +5,7 @@
 
       <mat-form-field class="login__input" appearance="fill">
         <mat-label>Usuario</mat-label>
-        <input matInput placeholder="Usuario" formControlName="usuario" />
+        <input matInput placeholder="Usuario" formControlName="username" />
       </mat-form-field>
       <mat-form-field class="login__input" appearance="fill">
         <mat-label>Contraseña</mat-label>
@@ -25,6 +25,9 @@
       >
         Acceder
       </button>
+      <div class="text-center">
+        <a routerLink="public">Volver a la web</a>
+      </div>
     </div>
   </form>
 </section>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '@servicesPublic/auth.service';
 
 @Component({
   selector: 'app-private',
@@ -7,9 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./private.component.scss'],
 })
 export class PrivateComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, public authService: AuthService) {}
 
   logout() {
+    this.authService.logout();
     this.router.navigate([`/public/login`]);
   }
 }

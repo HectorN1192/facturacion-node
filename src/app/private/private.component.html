@@ -2,8 +2,12 @@
   <mat-toolbar-row class="header__container">
     <h1>Hecnic</h1>
 
-    <a class="btn btn-primary cursor" role="button" (click)="logout()"
-      >logout</a
+    <a
+      class="btn btn-primary cursor"
+      role="button"
+      (click)="logout()"
+      *ngIf="authService.isLogged | async"
+      >Logout</a
     >
   </mat-toolbar-row>
 </mat-toolbar>

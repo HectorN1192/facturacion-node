@@ -1,3 +1,5 @@
 export default {
-  jwtSecret: "secret",
+  jwtSecret: 'secret',
+  jwtSecretReset: 'secret123',
+  jwtSecretRefresh: 'secret123456',
 };

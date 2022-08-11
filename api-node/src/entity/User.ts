@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, MinLength } from "class-validator";
+import { IsEmail, IsNotEmpty, IsOptional, MinLength } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
@@ -6,12 +6,12 @@ import {
   PrimaryGeneratedColumn,
   Unique,
   UpdateDateColumn,
-} from "typeorm";
+} from 'typeorm';
 
-import * as bcrypt from "bcryptjs";
+import * as bcrypt from 'bcryptjs';
 
 @Entity()
-@Unique(["username"])
+@Unique(['username'])
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -38,6 +38,11 @@ export class User {
   @Column()
   @UpdateDateColumn()
   updateAt: Date;
+
+  @Column()
+  @IsOptional()
+  @IsNotEmpty()
+  refreshToken: string;
 
   hashPassword(): void {
     const salt = bcrypt.genSaltSync(10);

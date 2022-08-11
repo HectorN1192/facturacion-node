@@ -38,10 +38,22 @@ class AuthController {
     const token = jwt.sign(
       { userId: user.id, username: user.username },
       config.jwtSecret,
-      { expiresIn: '1h' }
+      { expiresIn: '180000' }
+    );
+    const tokenRefresh = jwt.sign(
+      { userId: user.id, username: user.username },
+      config.jwtSecretRefresh,
+      { expiresIn: '180000' }
     );
 
-    res.json({ message: 'OK', token, userId: user.id, role: user.role });
+    user.refreshToken = tokenRefresh;
+    try {
+      await userRepository.save(user);
+    } catch (error) {
+      return res.status(400).json({ message: 'Somethings goes wrong' });
+    }
+
+    res.json({ message: 'OK', token, tokenRefresh, role: user.role });
   };
 
   static changePassword = async (req: Request, res: Response) => {
@@ -77,6 +89,37 @@ class AuthController {
     user.hashPassword();
     userRepository.save(user);
     return res.status(200).json({ message: 'Password change!' });
+  };
+
+  static refreshToken = async (req: Request, res: Response) => {
+    const refreshToken = req.headers.refresh as string;
+
+    if (!refreshToken) {
+      res.status(400).json({ message: 'Somethings goes wrong' });
+    }
+
+    const userRepository = AppDataSource.getRepository(User);
+    let user: User;
+    try {
+      const verifyResult = jwt.verify(refreshToken, config.jwtSecretRefresh);
+      const { username } = verifyResult as User;
+
+      user = await userRepository.findOneOrFail({
+        where: {
+          username: username,
+        },
+      });
+    } catch (error) {
+      return res.status(400).json({ message: 'Somethings goes wrong', error });
+    }
+
+    const token = jwt.sign(
+      { userId: user.id, username: user.username },
+      config.jwtSecret,
+      { expiresIn: '120' }
+    );
+
+    res.json({ message: 'OK', token });
   };
 }
 export default AuthController;
